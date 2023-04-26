@@ -1,9 +1,17 @@
 import Head from "next/head";
 import Header from "./components/header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [values, setValues] = useState({ title: "", content: "" });
+
+  useEffect(() => {
+    fetch("../api/hello", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -11,8 +19,25 @@ export default function Home() {
     setValues({ ...values, [name]: val });
   };
 
-  const handlePost = () => {
-    fetch("../api/hello").then(() => console.log("追加"));
+  const handlePost = async () => {
+    const data = {
+      title: values.title,
+      content: values.content,
+    };
+    await fetch("../api/hello", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert("投稿しました");
+        console.log(data);
+      });
+    setValues({ ...values, title: "" });
+    setValues({ ...values, content: "" });
   };
 
   return (
