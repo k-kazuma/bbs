@@ -2,15 +2,30 @@ import Head from "next/head";
 import Header from "./components/header";
 import { useEffect, useState } from "react";
 
+type Obj = {
+  id: null | undefined;
+  title: String;
+  content: String;
+};
+
 export default function Home() {
   const [values, setValues] = useState({ title: "", content: "" });
+  const [itemList, setItemList] = useState<Obj[]>([]);
 
-  useEffect(() => {
+  const getList = () => {
     fetch("../api/hello", {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setItemList(data);
+        console.log(itemList);
+      });
+  };
+
+  useEffect(() => {
+    getList();
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +51,22 @@ export default function Home() {
         alert("投稿しました");
         console.log(data);
       });
-    setValues({ ...values, title: "" });
-    setValues({ ...values, content: "" });
+    setValues({ title: "", content: "" });
+    getList();
+  };
+
+  const handleDelete = async (id: null | undefined) => {
+    const delId = {
+      id: id,
+    };
+    console.log(delId);
+    await fetch("../api/hello", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(delId),
+    }).then((res) => console.log(res));
   };
 
   return (
@@ -65,6 +94,17 @@ export default function Home() {
           />
           <button onClick={handlePost}>追加</button>
         </div>
+
+        {itemList.map((item) => {
+          return (
+            <div key={item.id}>
+              <div>
+                {item.title}+{item.content}
+              </div>
+              <button onClick={() => handleDelete(item.id)}>削除</button>
+            </div>
+          );
+        })}
       </main>
     </>
   );
