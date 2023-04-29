@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "./components/header";
 import { useEffect, useState } from "react";
 import Post from "./components/post";
+import Posting from "./components/ posting";
 
 type Obj = {
   id: null | undefined;
@@ -29,21 +30,6 @@ export default function Home() {
     getList();
   }, []);
 
-  const handleDelete = async (id: null | undefined) => {
-    const delId = {
-      id: id,
-    };
-    console.log(delId);
-    await fetch("../api/delete", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(delId),
-    }).then((res) => console.log(res));
-    getList();
-  };
-
   return (
     <>
       <Head>
@@ -56,17 +42,7 @@ export default function Home() {
       <main className={``}>
         <Post values={values} setValues={setValues} getList={getList} />
 
-        {itemList.map((item) => {
-          return (
-            <ul>
-              <li key={item.id}>
-                <h3>{item.title}</h3>
-                <p>{item.content}</p>
-                <button onClick={() => handleDelete(item.id)}>削除</button>
-              </li>
-            </ul>
-          );
-        })}
+        <Posting itemList={itemList} getList={getList} />
       </main>
     </>
   );
