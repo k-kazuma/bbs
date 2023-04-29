@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "./components/header";
 import { useEffect, useState } from "react";
+import Post from "./components/post";
 
 type Obj = {
   id: null | undefined;
@@ -28,33 +29,6 @@ export default function Home() {
     getList();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    const name = e.target.name;
-    setValues({ ...values, [name]: val });
-  };
-
-  const handlePost = async () => {
-    const data = {
-      title: values.title,
-      content: values.content,
-    };
-    await fetch("../api/hello", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("投稿しました");
-        console.log(data);
-      });
-    setValues({ title: "", content: "" });
-    getList();
-  };
-
   const handleDelete = async (id: null | undefined) => {
     const delId = {
       id: id,
@@ -80,21 +54,7 @@ export default function Home() {
       </Head>
       <Header />
       <main className={``}>
-        <div>
-          <input
-            type="text"
-            onChange={handleChange}
-            value={values.title}
-            name="title"
-          />
-          <input
-            type="text"
-            onChange={handleChange}
-            value={values.content}
-            name="content"
-          />
-          <button onClick={handlePost}>追加</button>
-        </div>
+        <Post values={values} setValues={setValues} getList={getList} />
 
         {itemList.map((item) => {
           return (

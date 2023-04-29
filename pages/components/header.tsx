@@ -3,7 +3,7 @@ import React from "react";
 function Header() {
   return (
     <div>
-      <header>城ドラ掲示板</header>
+      <header>掲示板</header>
     </div>
   );
 }
