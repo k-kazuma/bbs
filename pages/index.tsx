@@ -58,12 +58,13 @@ export default function Home() {
 
         {itemList.map((item) => {
           return (
-            <div key={item.id}>
-              <div>
-                {item.title}+{item.content}
-              </div>
-              <button onClick={() => handleDelete(item.id)}>削除</button>
-            </div>
+            <ul>
+              <li key={item.id}>
+                <h3>{item.title}</h3>
+                <p>{item.content}</p>
+                <button onClick={() => handleDelete(item.id)}>削除</button>
+              </li>
+            </ul>
           );
         })}
       </main>
