@@ -60,13 +60,14 @@ export default function Home() {
       id: id,
     };
     console.log(delId);
-    await fetch("../api/hello", {
-      method: "DELETE",
+    await fetch("../api/delete", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(delId),
     }).then((res) => console.log(res));
+    getList();
   };
 
   return (
