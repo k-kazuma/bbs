@@ -1,0 +1,10 @@
+.thread {
+  width: 100%;
+  background-color: rgb(65, 65, 65);
+  padding: 5px;
+}
+
+.threadTitle {
+  text-align: center;
+  color: white;
+}

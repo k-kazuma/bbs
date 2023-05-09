@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import style from "styles/components/postList.module.css";
 
 type Obj = {
   id: null | undefined;
@@ -11,7 +12,7 @@ interface Props {
   getList: () => void;
 }
 
-function Posting({ itemList, getList }: Props) {
+function PostList({ itemList, getList }: Props) {
   const handleDelete = async (id: null | undefined) => {
     const delId = {
       id: id,
@@ -31,9 +32,9 @@ function Posting({ itemList, getList }: Props) {
       <ul>
         {itemList.map((item) => {
           return (
-            <li key={item.id}>
-              <h3>{item.title}</h3>
-              <p>{item.content}</p>
+            <li key={item.id} className={`${style.li}`}>
+              <h3 className={`${style.title}`}>{item.title}</h3>
+              <p className={`${style.content}`}>{item.content}</p>
               <button onClick={() => handleDelete(item.id)}>削除</button>
             </li>
           );
@@ -43,4 +44,4 @@ function Posting({ itemList, getList }: Props) {
   );
 }
 
-export default Posting;
+export default PostList;

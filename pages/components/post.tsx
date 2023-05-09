@@ -1,4 +1,5 @@
 import React from "react";
+import style from "styles/components/post.module.css";
 
 interface Props {
   values: {
@@ -15,7 +16,9 @@ interface Props {
 }
 
 function Post({ values, setValues, getList }: Props) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const val = e.target.value;
     const name = e.target.name;
     setValues({ ...values, [name]: val });
@@ -43,20 +46,27 @@ function Post({ values, setValues, getList }: Props) {
   };
 
   return (
-    <div>
+    <div className={`${style.post}`}>
+      <label htmlFor="name">名前</label>
       <input
+        className={`${style.nameInput}`}
+        id="name"
         type="text"
         onChange={handleChange}
         value={values.title}
         name="title"
+        placeholder="ニックネーム"
       />
-      <input
-        type="text"
+      <label htmlFor="comment">コメント</label>
+      <textarea
+        className={`${style.textArea}`}
+        id="comment"
         onChange={handleChange}
         value={values.content}
         name="content"
+        placeholder="コメント内容"
       />
-      <button onClick={handlePost}>追加</button>
+      <button onClick={handlePost}>投稿する</button>
     </div>
   );
 }

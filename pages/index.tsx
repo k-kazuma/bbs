@@ -1,8 +1,14 @@
 import Head from "next/head";
 import Header from "./components/header";
 import { useEffect, useState } from "react";
+
 import Post from "./components/post";
-import Posting from "./components/ posting";
+import Hero from "./components/hero";
+import Thread from "./components/thread";
+import Footer from "./components/footer";
+import PostList from "./components/ postList";
+
+import style from "styles/Home.module.css";
 
 type Obj = {
   id: null | undefined;
@@ -22,7 +28,6 @@ export default function Home() {
       .then((data) => {
         console.log(data);
         setItemList(data);
-        console.log(itemList);
       });
   };
 
@@ -39,11 +44,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className={``}>
+      <Hero />
+      <main className={`${style.main}`}>
+        <Thread />
+        <PostList itemList={itemList} getList={getList} />
         <Post values={values} setValues={setValues} getList={getList} />
-
-        <Posting itemList={itemList} getList={getList} />
       </main>
+      <Footer />
     </>
   );
 }

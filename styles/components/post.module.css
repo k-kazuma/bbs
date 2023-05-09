@@ -1,0 +1,23 @@
+.post {
+  margin: 0 auto 10px;
+  position: absolute;
+  font-size: 1.2rem;
+  padding: 15px;
+  background-color: aliceblue;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+}
+
+.nameInput {
+  width: 270px;
+  padding: 4px 3px;
+}
+
+.textArea {
+  width: 320px;
+  height: 150px;
+  padding: 5px 3px;
+}
